@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: MortgageApplication
+
+mortgage:
+  maxMultipleOfIncome: 4
+  rates:
+    - maturityPeriod: 10
+      interestRate: 3.0
+    - maturityPeriod: 15
+      interestRate: 3.5
+    - maturityPeriod: 20
+      interestRate: 3.75
+    - maturityPeriod: 30
+      interestRate: 4.0

@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "e67d21bb-c28b-40e3-8bd2-9277a32906c6",
+		"name": "Integration Test v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1224108"
+	},
+	"item": [
+		{
+			"name": "/api/interest-rates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/interest-rates",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"interest-rates"
+					]
+				},
+				"description": "Fetch the list of current interest rates"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/mortgage-check - No Mortgage Rate found",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"income\": 100,\r\n    \"maturityPeriod\": 100,\r\n    \"loanValue\": 10,\r\n    \"homeValue\": 50,\r\n    \"extraField1\": \"10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mortgage-check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mortgage-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/mortgage-check - Valid MortgageCheckRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"income\": 100,\r\n    \"maturityPeriod\": 10,\r\n    \"loanValue\": 10,\r\n    \"homeValue\": 50,\r\n    \"extraField1\": \"10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mortgage-check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mortgage-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/mortgage-check - Invalid request - Zero income",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"income\": 0,\r\n    \"maturityPeriod\": 10,\r\n    \"loanValue\": 10,\r\n    \"homeValue\": 50,\r\n    \"extraField1\": \"10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mortgage-check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mortgage-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/mortgage-check - Invalid request - Zero maturity period",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"income\": 100,\r\n    \"maturityPeriod\": 0,\r\n    \"loanValue\": 10,\r\n    \"homeValue\": 50,\r\n    \"extraField1\": \"10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mortgage-check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mortgage-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/mortgage-check - Invalid request - Zero loan value",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"income\": 100,\r\n    \"maturityPeriod\": 10,\r\n    \"loanValue\": 0,\r\n    \"homeValue\": 50,\r\n    \"extraField1\": \"10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mortgage-check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mortgage-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/mortgage-check - Invalid request - Zero home value",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"income\": 100,\r\n    \"maturityPeriod\": 10,\r\n    \"loanValue\": 10,\r\n    \"homeValue\": 0,\r\n    \"extraField1\": \"10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mortgage-check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mortgage-check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/mortgage-check - Invalid request - Zero income, maturity period, loan value, home value",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"income\": 0,\r\n    \"maturityPeriod\": 0,\r\n    \"loanValue\": 0,\r\n    \"homeValue\": 0,\r\n    \"extraField1\": \"0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/mortgage-check",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"mortgage-check"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
