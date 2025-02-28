@@ -2,11 +2,13 @@
 
 ### Application
 
-We would like you to create a Java-based backend application using REST.
-It should contain the following endpoints.
+This is a mortgage-application, a Java-based backend application using REST.
+It contains the following endpoints.
 
+```
 - GET /api/interest-rates (get a list of current interest rates)
 - POST /api/mortgage-check (post the parameters to calculate for a mortgage check)
+```
 
 The list of current mortgage rates is created in memory on application startup based on the properties configured in the
 application context.
@@ -30,18 +32,17 @@ The mortgage rate object contains the fields:
 The posted data for the mortgage check contains at least the fields;
 
 ```
-- income (Amount),
-- maturityPeriod (integer),
-- loanValue (Amount),
-- homeValue (Amount).
+- income (Amount)
+- maturityPeriod (integer)
+- loanValue (Amount)
+- homeValue (Amount)
 ```
 
-The mortgage check return if the mortgage is feasible (boolean) and the monthly costs (Amount) of the mortgage.
+The mortgage check returns if the mortgage is feasible (boolean) and the monthly costs (Amount) of the mortgage.
 
-Business rules that apply are
+Business rules applied are
 
 ```
 - Mortgage should not exceed 4 times the income
 - Mortgage should not exceed the home value
 ```
-
