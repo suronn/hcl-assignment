@@ -40,26 +40,29 @@ class MortgageServiceTest {
     public static Stream<Arguments> feasibleMortgageRequests() {
         return Stream.of(
                 Arguments.of(Named.of("Loan value is less than the home value",
-                        MortgageCheckRequest.builder()
-                                .income(new BigDecimal("100000"))
-                                .maturityPeriod(10)
-                                .loanValue(new BigDecimal("150000")).
-                                homeValue(new BigDecimal("200000"))
-                                .build())),
+                                MortgageCheckRequest.builder()
+                                        .income(new BigDecimal("100000"))
+                                        .maturityPeriod(10)
+                                        .loanValue(new BigDecimal("150000"))
+                                        .homeValue(new BigDecimal("200000"))
+                                        .build()),
+                        BigDecimal.valueOf(1448.41)),
                 Arguments.of(Named.of("Loan value is equal than the home value",
-                        MortgageCheckRequest.builder()
-                                .income(new BigDecimal("100000"))
-                                .maturityPeriod(10)
-                                .loanValue(new BigDecimal("200000"))
-                                .homeValue(new BigDecimal("200000"))
-                                .build())),
+                                MortgageCheckRequest.builder()
+                                        .income(new BigDecimal("100000"))
+                                        .maturityPeriod(10)
+                                        .loanValue(new BigDecimal("200000"))
+                                        .homeValue(new BigDecimal("200000"))
+                                        .build()),
+                        BigDecimal.valueOf(1931.21)),
                 Arguments.of(Named.of("Mortgage is less than 4 times the income",
-                        MortgageCheckRequest.builder()
-                                .income(new BigDecimal("100000"))
-                                .maturityPeriod(10)
-                                .loanValue(new BigDecimal("150000"))
-                                .homeValue(new BigDecimal("200000"))
-                                .build()))
+                                MortgageCheckRequest.builder()
+                                        .income(new BigDecimal("100000"))
+                                        .maturityPeriod(10)
+                                        .loanValue(new BigDecimal("150000"))
+                                        .homeValue(new BigDecimal("200000"))
+                                        .build()),
+                        BigDecimal.valueOf(1448.41))
         );
     }
 
@@ -85,7 +88,7 @@ class MortgageServiceTest {
 
     @ParameterizedTest
     @MethodSource("feasibleMortgageRequests")
-    void testCheckMortgageFeasibility(MortgageCheckRequest request) {
+    void testCheckMortgageFeasibility(MortgageCheckRequest request, BigDecimal expectedMonthlyCost) {
         // Given
         when(mortgageConfiguration.getMaxMultipleOfIncome()).thenReturn(new BigDecimal(MAX_MULTIPLE_OF_INCOME));
         when(mortgageRateRepository.findByMaturityPeriod(request.getMaturityPeriod()))
@@ -96,7 +99,7 @@ class MortgageServiceTest {
 
         // Then
         assertThat(response.isFeasible()).isTrue();
-        assertThat(response.getMonthlyCost()).isPositive();
+        assertThat(response.getMonthlyCost()).isEqualTo(expectedMonthlyCost);
     }
 
     @ParameterizedTest

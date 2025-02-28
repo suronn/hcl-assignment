@@ -101,7 +101,7 @@ class MortgageControllerTests {
     }
 
     @Test
-    void shouldReturnFeasibility() throws Exception {
+    void shouldReturnSuccessfulFeasibility() throws Exception {
         // Given
         MortgageCheckRequest request = MortgageCheckRequest.builder()
                 .income(new BigDecimal("50000"))
@@ -126,6 +126,34 @@ class MortgageControllerTests {
         MortgageCheckResponse mortgageResponse = objectMapper.readValue(responseString, MortgageCheckResponse.class);
         assertThat(mortgageResponse.isFeasible()).isTrue();
         assertThat(mortgageResponse.getMonthlyCost()).isPositive();
+    }
+
+    @Test
+    void shouldReturnUnSuccessfulFeasibility() throws Exception {
+        // Given
+        MortgageCheckRequest request = MortgageCheckRequest.builder()
+                .income(new BigDecimal("50000"))
+                .maturityPeriod(20)
+                .loanValue(new BigDecimal("15000"))
+                .homeValue(new BigDecimal("200000"))
+                .build();
+        String requestBody = objectMapper.writeValueAsString(request);
+        MortgageCheckResponse response = MortgageCheckResponse.builder().feasible(false).monthlyCost(BigDecimal.ZERO).build();
+        when(mortgageService.checkMortgage(any(MortgageCheckRequest.class))).thenReturn(response);
+
+        // When
+        String responseString = mockMvc.perform(post("/api/mortgage-check")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        // Then
+        MortgageCheckResponse mortgageResponse = objectMapper.readValue(responseString, MortgageCheckResponse.class);
+        assertThat(mortgageResponse.isFeasible()).isFalse();
+        assertThat(mortgageResponse.getMonthlyCost()).isZero();
     }
 
     @Test
